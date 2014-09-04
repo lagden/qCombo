@@ -1,0 +1,25 @@
+{
+  "name": "qCombo",
+  "version": "0.1.0",
+  "description": "Select boxes much more user-friendly.",
+  "author": "Thiago Lagden <lagden@gmail.com>",
+  "main": "./dist/qCombo.js",
+  "keyword": [
+    "custom",
+    "combo",
+    "select",
+    "search"
+  ],
+  "ignore": [
+    "src",
+    "dist/lib",
+    "package.json",
+    "Gruntfile.coffee",
+    "README.md",
+    ".*"
+  ],
+  "dependencies": {
+    "eventEmitter": "~4.2.7",
+    "classie": "~1.0.1"
+  }
+}

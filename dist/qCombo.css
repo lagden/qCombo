@@ -1,0 +1,9 @@
+.qCombo {
+  position: relative;
+  display: inline-block;
+}
+.qCombo.qCombo--initialized > select {
+  z-index: 1;
+  visibility: hidden;
+  position: absolute;
+}

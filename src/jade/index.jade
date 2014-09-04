@@ -1,0 +1,45 @@
+doctype
+html(lang='en')
+    head
+        meta(charset='utf8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
+        meta(name='description', content='Example')
+        meta(name='author', content='Thiago Lagden')
+        link(rel='stylesheet', type='text/css', href='qCombo.css')
+        style.
+            body {
+                background: gray
+            }
+
+            label {
+                display: block;
+                margin-bottom: 5px;
+            }
+
+            .mar-b-20 {
+                margin-bottom: 20px;
+            }
+    title Example
+    body
+        h1 Example
+        form#frm(action='#', method='GET')
+            .mar-b-20
+                label(for='animal') Choose one animal:
+                .qCombo
+                    select#animal(name='animal')
+                        option(value='') Select
+                        option(value='Dog') Dog
+                        option(value='Cat') Cat
+                        option(value='Lion') Lion
+                        option(value='Fox') Fox
+
+            button(type='submit') OK
+            button(type='reset') Reset
+            button#destroy(type='button') Destroy
+
+
+        script(src='qCombo.pkg.js')
+        script.
+            var cache = [];
+            cache.push(new QCombo('.qCombo'));

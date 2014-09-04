@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Example">
+    <meta name="author" content="Thiago Lagden">
+    <link rel="stylesheet" type="text/css" href="qCombo.css">
+    <style>
+      body {
+          background: gray
+      }
+      
+      label {
+          display: block;
+          margin-bottom: 5px;
+      }
+      
+      .mar-b-20 {
+          margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <title>Example</title>
+  <body>
+    <h1>Example</h1>
+    <form id="frm" action="#" method="GET">
+      <div class="mar-b-20">
+        <label for="animal">Choose one animal:</label>
+        <div class="qCombo">
+          <select id="animal" name="animal">
+            <option value="">Select</option>
+            <option value="Dog">Dog</option>
+            <option value="Cat">Cat</option>
+            <option value="Lion">Lion</option>
+            <option value="Fox">Fox</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit">OK</button>
+      <button type="reset">Reset</button>
+      <button id="destroy" type="button">Destroy</button>
+    </form>
+    <script src="qCombo.pkg.js"></script>
+    <script>
+      var cache = [];
+      cache.push(new QCombo('.qCombo'));
+    </script>
+  </body>
+</html>
