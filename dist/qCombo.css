@@ -4,6 +4,7 @@
   font-weight: normal;
   font-style: normal;
 }
+[class^="qCombo-"],
 [class*=" qCombo-"] {
   font-family: "qCombo";
   speak: none;
@@ -31,9 +32,144 @@
 .qCombo {
   position: relative;
   display: inline-block;
+  width: 100%;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  user-drag: none;
+  touch-select: none;
+  touch-callout: none;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+  font-size: 1em;
 }
 .qCombo.qCombo--initialized > select {
   z-index: 1;
   visibility: hidden;
   position: absolute;
+}
+.qCombo > .widgetCombo {
+  position: relative;
+  width: 100%;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+}
+.qCombo > .widgetCombo > .widgetComboLabel,
+.qCombo > .widgetCombo > .widgetComboList {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+}
+.qCombo > .widgetCombo > .widgetComboLabel > .widgetCombo__caption {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 85%;
+      -ms-flex: 1 85%;
+          flex: 1 85%;
+  padding: 8px 11px;
+  -moz-box-sizing: border-box;
+       box-sizing: border-box;
+}
+.qCombo > .widgetCombo > .widgetComboLabel > .widgetCombo__caption span {
+  display: inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  vertical-align: middle;
+}
+.qCombo > .widgetCombo > .widgetComboLabel > .qCombo-down {
+  display: none;
+}
+.qCombo > .widgetCombo > .widgetComboLabel > .qCombo-clean {
+  display: block;
+}
+.qCombo > .widgetCombo > .widgetComboList {
+  width: 100%;
+  -moz-box-sizing: border-box;
+       box-sizing: border-box;
+  display: none;
+  position: absolute;
+  background-color: #f0f0f0;
+  border-radius: 0 0 5px 5px;
+}
+.qCombo > .widgetCombo > .widgetComboList > .widgetCombo__q {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 auto;
+      -ms-flex: 1 auto;
+          flex: 1 auto;
+  margin: 0;
+  padding: 8px 11px;
+  -moz-box-sizing: border-box;
+       box-sizing: border-box;
+  border: 0;
+  background-color: white;
+}
+.qCombo > .widgetCombo > .widgetComboList > .widgetCombo__q:focus {
+  outline: none;
+  background-color: #fcfcfc;
+}
+.qCombo > .widgetCombo > .widgetComboList > .qCombo-search {
+  background-color: white;
+}
+.qCombo > .widgetCombo > .widgetComboList > .widgetCombo__q:focus ~ .qCombo-search {
+  background-color: #fcfcfc;
+}
+.qCombo > .widgetCombo > .widgetComboList > .widgetCombo__listbox {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 100%;
+      -ms-flex: 1 100%;
+          flex: 1 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  max-height: 175px;
+  border-radius: 0 0 5px 5px;
+}
+.qCombo > .widgetCombo > .widgetComboList > .widgetCombo__listbox > li {
+  margin: 0;
+  padding: 8px 11px;
+}
+.qCombo > .widgetCombo > .widgetComboList > .widgetCombo__listbox > li:hover {
+  background-color: rgba(0, 0, 255, 0.5);
+  color: white;
+}
+.qCombo > .widgetCombo.isEmpty > .widgetComboLabel > .widgetCombo__caption {
+  color: rgba(0, 0, 0, 0.5);
+}
+.qCombo > .widgetCombo.isEmpty > .widgetComboLabel > .qCombo-down {
+  display: block;
+}
+.qCombo > .widgetCombo.isEmpty > .widgetComboLabel > .qCombo-clean {
+  display: none;
+}
+.qCombo > .widgetCombo.isSearching {
+  z-index: 999;
+  border-radius: 5px 5px 0 0;
+}
+.qCombo > .widgetCombo.isSearching > .widgetComboLabel > .qCombo-down {
+  display: block;
+}
+.qCombo > .widgetCombo.isSearching > .widgetComboLabel > .qCombo-clean {
+  display: none;
+}
+.qCombo > .widgetCombo.isSearching > .widgetComboList {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.qCombo__icon {
+  padding: 8px 11px;
+  -moz-box-sizing: border-box;
+       box-sizing: border-box;
 }

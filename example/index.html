@@ -29,12 +29,23 @@
       <div class="mar-b-20">
         <label for="animal">Choose one animal:</label>
         <div class="qCombo">
-          <select id="animal" name="animal">
-            <option value="">Select</option>
+          <select id="animal" name="animal" title="Choose one animal">
+            <option value="">Choose one animal</option>
             <option value="Dog">Dog</option>
             <option value="Cat">Cat</option>
-            <option value="Lion">Lion</option>
+            <option value="Lion" selected="true">Lion</option>
             <option value="Fox">Fox</option>
+          </select>
+        </div>
+      </div>
+      <div class="mar-b-20">
+        <label for="food">Choose one food:</label>
+        <div class="qCombo">
+          <select id="food" name="food">
+            <option value="">Choose one food</option>
+            <option value="Pizza">Pizza</option>
+            <option value="Massa">Massa</option>
+            <option value="Fish">Fish</option>
           </select>
         </div>
       </div>
@@ -45,7 +56,9 @@
     <script src="qCombo.pkg.js"></script>
     <script>
       var cache = [];
-      cache.push(new QCombo('.qCombo'));
+      [].forEach.call(document.querySelectorAll('.qCombo'), function(el){
+          cache.push(new QCombo(el));
+      });
     </script>
   </body>
 </html>

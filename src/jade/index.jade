@@ -27,12 +27,36 @@ html(lang='en')
             .mar-b-20
                 label(for='animal') Choose one animal:
                 .qCombo
-                    select#animal(name='animal')
-                        option(value='') Select
+                    select#animal(name='animal', title='Choose one animal')
+                        option(value='') Choose one animal
                         option(value='Dog') Dog
                         option(value='Cat') Cat
-                        option(value='Lion') Lion
+                        option(value='Lion', selected='true') Lion
                         option(value='Fox') Fox
+
+            .mar-b-20
+                label(for='food') Choose one food:
+                .qCombo
+                    select#food(name='food')
+                        option(value='') Choose one food
+                        option(value='Pizza') Pizza
+                        option(value='Massa') Massa
+                        option(value='Fish') Fish
+
+            //- .mar-b-20
+            //-     .qCombo
+            //-         .widgetCombo.isSearching
+            //-             .widgetComboLabel
+            //-                 .widgetCombo__caption
+            //-                     span Some big stuff hereee
+            //-                 .qCombo-down.qCombo__icon
+            //-                 .qCombo-clean.qCombo__icon
+            //-             .widgetComboList
+            //-                 input.widgetCombo__q(type='text', role='combobox', placeholder='Filtro')
+            //-                 .qCombo-search.qCombo__icon
+            //-                 ul.widgetCombo__listbox(role='listbox')
+            //-                     each val in [0, 1, 2, 3, 4, 5, 7, 8, 9, 10]
+            //-                         li test #{val}
 
             button(type='submit') OK
             button(type='reset') Reset
@@ -42,4 +66,6 @@ html(lang='en')
         script(src='qCombo.pkg.js')
         script.
             var cache = [];
-            cache.push(new QCombo('.qCombo'));
+            [].forEach.call(document.querySelectorAll('.qCombo'), function(el){
+                cache.push(new QCombo(el));
+            });

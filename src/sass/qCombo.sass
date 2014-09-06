@@ -5,7 +5,7 @@
     font-weight: normal
     font-style: normal
 
-[class^="qCombo-"]
+[class^="qCombo-"],
 [class*=" qCombo-"]
     font-family: 'qCombo'
     speak: none
@@ -27,14 +27,131 @@
 .qCombo-clean:before
     content: "\23"
 
+// Vars
+$qComboTB: 8px
+$qComboLR: 11px
+$qComboPadding: $qComboTB $qComboLR
+$qComboBoderRadius: 5px
+
 // Widget
 .qCombo
 
     position: relative
     display: inline-block
 
+    width: 100%
+
+    user-select: none
+    user-drag: none
+    touch-select: none
+    touch-callout: none
+
+    font-family: Consolas, 'Liberation Mono', Courier, monospace
+    font-size: 1em
+
     &.qCombo--initialized
         > select
             z-index: 1
             visibility: hidden
             position: absolute
+
+    > .widgetCombo
+        position: relative
+        width: 100%
+        border-radius: $qComboBoderRadius
+        background-color: rgba(240, 240, 240 ,1)
+
+        > .widgetComboLabel,
+        > .widgetComboList
+            display: flex
+            flex-flow: row wrap
+            align-items: stretch
+
+        > .widgetComboLabel
+            > .widgetCombo__caption
+                flex: 1 85%
+                padding: $qComboPadding
+                box-sizing: border-box
+                span
+                    display: inline-block
+                    text-overflow: ellipsis
+                    white-space: nowrap
+                    overflow: hidden
+                    width: 100%
+                    vertical-align: middle
+
+            > .qCombo-down
+                display: none
+            > .qCombo-clean
+                display: block
+
+
+
+        > .widgetComboList
+            width: 100%
+            box-sizing: border-box
+            display: none
+            position: absolute
+            background-color: rgba(240, 240, 240 ,1)
+            border-radius: 0 0 $qComboBoderRadius $qComboBoderRadius
+
+
+            > .widgetCombo__q
+                flex: 1 auto
+                margin: 0
+                padding: $qComboPadding
+                box-sizing: border-box
+                border: 0
+                background-color: white
+                &:focus
+                    outline: none
+                    background-color: rgba(252, 252, 252, 1)
+
+            > .qCombo-search
+                background-color: white
+
+            > .widgetCombo__q:focus ~ .qCombo-search
+                background-color: rgba(252, 252, 252, 1)
+
+
+            > .widgetCombo__listbox
+                flex: 1 100%
+                list-style: none
+                margin: 0
+                padding: 0
+                overflow: auto
+                max-height: 35px * 5
+                border-radius: 0 0 $qComboBoderRadius $qComboBoderRadius
+                > li
+                    margin: 0
+                    padding: $qComboPadding
+                    &:hover
+                        background-color: rgba(0, 0, 255, .5)
+                        color: rgba(white, 1)
+                        // border-radius: $qComboBoderRadius
+
+        &.isEmpty
+            > .widgetComboLabel
+                > .widgetCombo__caption
+                    color: rgba(black, 0.5)
+                > .qCombo-down
+                    display: block
+                > .qCombo-clean
+                    display: none
+
+        &.isSearching
+            z-index: 999
+            border-radius: $qComboBoderRadius $qComboBoderRadius 0 0
+            > .widgetComboLabel
+                > .qCombo-down
+                    display: block
+                > .qCombo-clean
+                    display: none
+
+            > .widgetComboList
+                display: flex
+
+
+.qCombo__icon
+    padding: $qComboPadding
+    box-sizing: border-box

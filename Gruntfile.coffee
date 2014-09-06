@@ -63,6 +63,11 @@ It is a plugin to make select boxes much more user-friendly
         files:
           'dist/qCombo.css': 'src/sass/qCombo.sass'
 
+    autoprefixer:
+      dist:
+        src: 'dist/qCombo.css'
+        dest: 'dist/qCombo.css'
+
     watch:
       scripts:
         files: ['src/coffee/{,*/}*.coffee']
@@ -70,7 +75,7 @@ It is a plugin to make select boxes much more user-friendly
 
       sass:
         files: ['src/sass/{,*/}*.sass']
-        tasks: ['sass']
+        tasks: ['sass', 'autoprefixer']
 
       jade:
         files: ['src/jade/*.jade']
@@ -101,6 +106,7 @@ It is a plugin to make select boxes much more user-friendly
     'coffee'
     'concat'
     'sass'
+    'autoprefixer'
     'jade'
   ]
   grunt.registerTask 'default', ['build']
