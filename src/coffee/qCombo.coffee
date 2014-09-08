@@ -97,10 +97,14 @@
 
     # Open list
     onOpen: (event) ->
+      afterFocus = ->
+        @q.focus()
+
       isOpen = classie.has @widget, 'isSearching'
       if isOpen is off
         classie.add @widget, 'isSearching'
-        @q.focus()
+        setTimeout afterFocus.bind(@), 100
+
       return
 
     # Close list
@@ -111,7 +115,7 @@
           classie.remove @widget, 'isSearching'
 
       # Blur trigger
-      setTimeout afterWait.bind(@), 300
+      setTimeout afterWait.bind(@), 200
       return
 
     # Return a text content from element

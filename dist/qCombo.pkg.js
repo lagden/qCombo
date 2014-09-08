@@ -2948,11 +2948,14 @@ if (typeof define == TYPE_FUNCTION && define.amd) {
         this.selectCombo.dispatchEvent(this.eventChange);
       },
       onOpen: function(event) {
-        var isOpen;
+        var afterFocus, isOpen;
+        afterFocus = function() {
+          return this.q.focus();
+        };
         isOpen = classie.has(this.widget, 'isSearching');
         if (isOpen === false) {
           classie.add(this.widget, 'isSearching');
-          this.q.focus();
+          setTimeout(afterFocus.bind(this), 100);
         }
       },
       onClose: function(event) {
@@ -2964,7 +2967,7 @@ if (typeof define == TYPE_FUNCTION && define.amd) {
             return classie.remove(this.widget, 'isSearching');
           }
         };
-        setTimeout(afterWait.bind(this), 300);
+        setTimeout(afterWait.bind(this), 200);
       },
       getCaption: function(el) {
         if (isElement(el)) {
