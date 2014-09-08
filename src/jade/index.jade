@@ -31,17 +31,17 @@ html(lang='en')
                         option(value='') Choose one animal
                         option(value='Dog') Dog
                         option(value='Cat') Cat
-                        option(value='Lion', selected='true') Lion
+                        option(value='Lion', selected) Lion
                         option(value='Fox') Fox
 
-            .mar-b-20
-                label(for='food') Choose one food:
-                .qCombo
-                    select#food(name='food')
-                        option(value='') Choose one food
-                        option(value='Pizza') Pizza
-                        option(value='Massa') Massa
-                        option(value='Fish') Fish
+            //- .mar-b-20
+            //-     label(for='food') Choose one food:
+            //-     .qCombo
+            //-         select#food(name='food')
+            //-             option(value='') Choose one food
+            //-             option(value='Pizza') Pizza
+            //-             option(value='Massa') Massa
+            //-             option(value='Fish') Fish
 
             //- .mar-b-20
             //-     .qCombo
@@ -69,3 +69,8 @@ html(lang='en')
             [].forEach.call(document.querySelectorAll('.qCombo'), function(el){
                 cache.push(new QCombo(el));
             });
+
+            var animal = document.querySelector('#animal');
+            animal.addEventListener('change', function(event){
+                console.log(event, animal);
+            }, false);

@@ -41,6 +41,7 @@ It is a plugin to make select boxes much more user-friendly
         src: [
           'dist/lib/classie/classie.js'
           'dist/lib/eventEmitter/EventEmitter.js'
+          'dist/lib/hammerjs/hammer.js'
           'dist/qCombo.js'
         ]
         dest: 'dist/qCombo.pkg.js'

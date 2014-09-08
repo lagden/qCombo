@@ -49,11 +49,11 @@ $qComboBoderRadius: 5px
     font-family: Consolas, 'Liberation Mono', Courier, monospace
     font-size: 1em
 
-    &.qCombo--initialized
-        > select
-            z-index: 1
-            visibility: hidden
-            position: absolute
+    // &.qCombo--initialized
+    //     > select
+    //         z-index: 1
+    //         visibility: hidden
+    //         position: absolute
 
     > .widgetCombo
         position: relative
@@ -68,7 +68,7 @@ $qComboBoderRadius: 5px
             align-items: stretch
 
         > .widgetComboLabel
-            > .widgetCombo__caption
+            > .widgetCombo__label
                 flex: 1 85%
                 padding: $qComboPadding
                 box-sizing: border-box
@@ -132,7 +132,7 @@ $qComboBoderRadius: 5px
 
         &.isEmpty
             > .widgetComboLabel
-                > .widgetCombo__caption
+                > .widgetCombo__label
                     color: rgba(black, 0.5)
                 > .qCombo-down
                     display: block
