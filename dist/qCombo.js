@@ -1,11 +1,11 @@
 (function() {
   (function(root, factory) {
     if (typeof define === "function" && define.amd) {
-      define(['classie/classie', 'eventEmitter/EventEmitter', 'hammerjs/hammer'], factory);
+      define(['classie/classie', 'eventEmitter/EventEmitter', 'hammerjs/hammer', 'async/lib/async'], factory);
     } else {
-      root.QCombo = factory(root.classie, root.EventEmitter, root.Hammer);
+      root.QCombo = factory(root.classie, root.EventEmitter, root.Hammer, root.async);
     }
-  })(this, function(classie, EventEmitter, Hammer) {
+  })(this, function(classie, EventEmitter, Hammer, async) {
     'use strict';
     var GUID, QCombo, QComboException, extend, handlerGUID, instances, isElement, _SPL;
     extend = function(a, b) {
@@ -36,9 +36,9 @@
     })();
     _SPL = {
       getTemplate: function() {
-        return '<div class="widgetCombo" data-value="{v}"> <div class="widgetComboLabel"> <div class="widgetCombo__label"> <span>{c}</span> </div> <div class="qCombo-down qCombo__icon"></div> <div class="qCombo-clean qCombo__icon"></div> </div> <div class="widgetComboList"> <input type="text" role="combobox" class="widgetCombo__q"> <div class="qCombo-search qCombo__icon"></div> <ul role="listbox" class="widgetCombo__listbox"></ul> </div> </div>';
+        return '<div tabindex="0" class="widgetCombo" data-value="{v}"> <div class="widgetComboLabel"> <div class="widgetCombo__label"><span>{c}</span></div> </div> <div class="widgetComboList"> <input type="search" class="widgetCombo__q"> <ul role="listbox" class="widgetCombo__listbox"></ul> </div> </div>';
       },
-      onChange: function(event) {
+      onSelected: function(event) {
         var index, target;
         target = event.target;
         index = _SPL.getData(target, 'data-index');
@@ -48,41 +48,31 @@
         _SPL.updateWidget.call(this);
         _SPL.updateParam.call(this);
         _SPL.isEmpty.call(this);
+        _SPL.onFocusOut.call(this);
         this.emitChange();
         this.selectCombo.dispatchEvent(this.eventChange);
       },
-      onReset: function(event) {
-        this.caption = this.options.empty;
-        this.valor = null;
-        _SPL.updateCombo.call(this);
-        _SPL.updateWidget.call(this);
-        _SPL.updateParam.call(this);
-        _SPL.isEmpty.call(this);
-        this.emitChange();
-        this.selectCombo.dispatchEvent(this.eventChange);
-      },
-      onOpen: function(event) {
-        var afterFocus, isOpen;
-        afterFocus = function() {
-          return this.q.focus();
-        };
-        isOpen = classie.has(this.widget, 'isSearching');
-        if (isOpen === false) {
-          classie.add(this.widget, 'isSearching');
-          setTimeout(afterFocus.bind(this), 100);
+      onToggle: function(event) {
+        var focused;
+        focused = classie.has(this.widget, 'focused');
+        if (focused === false || this.focus === false) {
+          this.focus = true;
+          _SPL.onFocusIn.call(this);
+        } else {
+          _SPL.onFocusOut.call(this);
         }
       },
-      onClose: function(event) {
-        var afterWait;
-        afterWait = function() {
-          var isOpen;
-          isOpen = classie.has(this.widget, 'isSearching');
-          if (isOpen === true) {
-            return classie.remove(this.widget, 'isSearching');
-          }
-        };
-        setTimeout(afterWait.bind(this), 200);
+      onFocusIn: function(event) {
+        classie.add(this.widget, 'focused');
+        console.log('onFocusIn');
       },
+      onFocusOut: function(event) {
+        classie.remove(this.widget, 'focused');
+        this.focus = false;
+        console.log('onFocusOut');
+      },
+      onOpen: function(event) {},
+      onClose: function(event) {},
       getCaption: function(el) {
         if (isElement(el)) {
           return el.textContent;
@@ -159,6 +149,37 @@
           }
         ];
       },
+      isListening: function(el) {
+        var id;
+        id = el && el.listenerGUID;
+        return id && this.listeners[el.listenerGUID];
+      },
+      updateAddEvents: function() {
+        var li, listener, manager, _i, _len, _ref;
+        _ref = this.list.querySelectorAll('li');
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          li = _ref[_i];
+          listener = _SPL.isListening.call(this, li);
+          if (listener instanceof Hammer === false) {
+            manager = new Hammer.Manager(li);
+            manager.add(new Hammer.Tap({
+              event: 'tap'
+            }));
+            manager.on('tap', this.events['selected']);
+            ++this.listenerGUID;
+            li.listenerGUID = this.listenerGUID;
+            this.listeners[this.listenerGUID] = manager;
+          }
+        }
+      },
+      updateRemoveEvents: function(el) {
+        var listener;
+        listener = _SPL.isListening.call(this, el);
+        if (listener instanceof Hammer === true) {
+          listener.destroy();
+          this.listeners[this.listenerGUID] = null;
+        }
+      },
       updateDataList: function() {
         var contentList, el, o, str, _i, _len, _ref;
         contentList = [];
@@ -177,37 +198,6 @@
         }
         this.list.insertAdjacentHTML('afterbegin', contentList.join(''));
         _SPL.updateAddEvents.call(this);
-      },
-      updateAddEvents: function() {
-        var li, listener, manager, _i, _len, _ref;
-        _ref = this.list.querySelectorAll('li');
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          li = _ref[_i];
-          listener = _SPL.isListening.call(this, li);
-          if (listener instanceof Hammer === false) {
-            manager = new Hammer.Manager(li);
-            manager.add(new Hammer.Tap({
-              event: 'tap'
-            }));
-            manager.on('tap', this.events['change']);
-            ++this.listenerGUID;
-            li.listenerGUID = this.listenerGUID;
-            this.listeners[this.listenerGUID] = manager;
-          }
-        }
-      },
-      updateRemoveEvents: function(el) {
-        var listener;
-        listener = _SPL.isListening.call(this, el);
-        if (listener instanceof Hammer === true) {
-          listener.destroy();
-          this.listeners[this.listenerGUID] = null;
-        }
-      },
-      isListening: function(el) {
-        var id;
-        id = el && el.listenerGUID;
-        return id && this.listeners[el.listenerGUID];
       },
       getOptions: function(callback) {
         var option, _i, _len, _ref;
@@ -234,47 +224,35 @@
         this.caption = _SPL.getCaption(selected);
         r = {
           'c': this.caption || this.options.empty,
-          'v': this.valor
+          'v': this.valor,
+          'guid': this.container.srGUID
         };
         content = this.options.template().replace(/\{(.*?)\}/g, function(a, b) {
           return r[b];
         });
         this.container.insertAdjacentHTML('afterbegin', content);
+        r = null;
         this.widget = this.container.querySelector(this.options.selectors.widget);
         this.widgetLabel = this.widget.querySelector(this.options.selectors.comboLabel);
-        this.labelHandler = this.widgetLabel.querySelector(this.options.selectors.labelHandler);
-        this.label = this.labelHandler.querySelector(this.options.selectors.label);
-        this.down = this.widgetLabel.querySelector(this.options.selectors.down);
-        this.clean = this.widgetLabel.querySelector(this.options.selectors.clean);
+        this.label = this.widgetLabel.querySelector(this.options.selectors.label);
         this.widgetList = this.widget.querySelector(this.options.selectors.comboList);
         this.q = this.widgetList.querySelector(this.options.selectors.q);
         this.list = this.widgetList.querySelector(this.options.selectors.list);
         _SPL.isEmpty.call(this);
         this.events = {
-          open: _SPL.onOpen.bind(this),
+          toggle: _SPL.onToggle.bind(this),
           close: _SPL.onClose.bind(this),
-          reset: _SPL.onReset.bind(this),
-          change: _SPL.onChange.bind(this)
+          selected: _SPL.onSelected.bind(this),
+          focusin: _SPL.onFocusIn.bind(this),
+          focusout: _SPL.onFocusOut.bind(this)
         };
         this.hammer = [
           {
-            manager: new Hammer.Manager(this.labelHandler),
+            manager: new Hammer.Manager(this.widgetLabel),
             evento: new Hammer.Tap({
               event: 'tap'
             }),
-            method: 'open'
-          }, {
-            manager: new Hammer.Manager(this.down),
-            evento: new Hammer.Tap({
-              event: 'tap'
-            }),
-            method: 'open'
-          }, {
-            manager: new Hammer.Manager(this.clean),
-            evento: new Hammer.Tap({
-              event: 'tap'
-            }),
-            method: 'reset'
+            method: 'toggle'
           }
         ];
         _ref = this.hammer;
@@ -283,7 +261,8 @@
           o.manager.add(o.evento);
           o.manager.on(o.evento.options.event, this.events[o.method]);
         }
-        this.q.addEventListener('blur', this.events.close, false);
+        this.widget.addEventListener('focusin', this.events.focusin, true);
+        this.widget.addEventListener('focusout', this.events.focusout, true);
         _SPL.getOptions.call(this, _SPL.updateDataList.bind(this));
       }
     };
@@ -324,10 +303,7 @@
             selectors: {
               widget: '.widgetCombo',
               comboLabel: '.widgetComboLabel',
-              labelHandler: '.widgetCombo__label',
-              label: 'span',
-              down: '.qCombo-down',
-              clean: '.qCombo-clean',
+              label: '.widgetCombo__label > span',
               comboList: '.widgetComboList',
               q: '.widgetCombo__q',
               list: '.widgetCombo__listbox'
@@ -349,9 +325,7 @@
             }
           ];
           this.eventChange = new CustomEvent('change');
-          this.singletap = new Hammer.Tap({
-            event: 'singletap'
-          });
+          this.focus = false;
           _SPL.build.call(this);
         }
         return;

@@ -33,6 +33,14 @@ html(lang='en')
                         option(value='Cat') Cat
                         option(value='Lion', selected) Lion
                         option(value='Fox') Fox
+                        option(value='Dog') Dog
+                        option(value='Cat') Cat
+                        option(value='Lion', selected) Lion
+                        option(value='Fox') Fox
+                        option(value='Dog') Dog
+                        option(value='Cat') Cat
+                        option(value='Lion', selected) Lion
+                        option(value='Fox') Fox
 
             //- .mar-b-20
             //-     label(for='food') Choose one food:
@@ -62,6 +70,20 @@ html(lang='en')
             button(type='reset') Reset
             button#destroy(type='button') Destroy
 
+
+        script.
+            (function () {
+              function CustomEvent ( event, params ) {
+                params = params || { bubbles: false, cancelable: false, detail: undefined };
+                var evt = document.createEvent( 'CustomEvent' );
+                evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
+                return evt;
+               };
+
+              CustomEvent.prototype = window.Event.prototype;
+
+              window.CustomEvent = CustomEvent;
+            })();
 
         script(src='qCombo.pkg.js')
         script.

@@ -1,37 +1,9 @@
-// Assets
-@font-face
-    font-family: 'qCombo'
-    src: url(data:application/x-font-ttf;charset=utf-8;base64,AAEAAAALAIAAAwAwT1MvMggiBtkAAAC8AAAAYGNtYXAANQBpAAABHAAAAERnYXNwAAAAEAAAAWAAAAAIZ2x5Zq6DkLoAAAFoAAABeGhlYWQBYyWiAAAC4AAAADZoaGVhA8kB6AAAAxgAAAAkaG10eAVnAAAAAAM8AAAAHGxvY2EAyAECAAADWAAAABBtYXhwAAoASQAAA2gAAAAgbmFtZeNXmgoAAAOIAAABPHBvc3QAAwAAAAAExAAAACAAAwIAAZAABQAAAUwBZgAAAEcBTAFmAAAA9QAZAIQAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAABAAAAAIwHg/+D/4AHgACAAAAABAAAAAAAAAAAAAAAgAAAAAAACAAAAAwAAABQAAwABAAAAFAAEADAAAAAIAAgAAgAAAAEAI//9//8AAAAAACD//f//AAH/4wADAAEAAAAAAAAAAAABAAH//wAPAAEAAAAAAAAAAAACAAA3OQEAAAAAAQAAAAAAAAAAAAIAADc5AQAAAAABAAAAAAAAAAAAAgAANzkBAAAAAAEAAABgAUABQAAGAAABBycHFzcnAQBgYECgoEABQGBgQKCgQAAAAAACAAD/+QHnAeAALQBGAAAlJz4BNz4BNTQmJy4BIyIGBw4BFRQWFx4BMzI2Nz4BNxceARc+AT8BPgE1NCYnJQYmJy4BNTQ2Nz4BNx4BFx4BFRQGBw4BJwHgfQcLAwQEHhoaRigoRhoaHh4aGkYoDhoNDBgKfQMJBAQJAyADBAQD/uAbLhIRFBQREi4bGy4SERQUERIuG0B9ChgMDRoOKEYaGh4eGhpGKChGGhoeBAQDCwZ8BAMBAQMEHwQIBQMKAmEBFRATLRwaLxESEwEBExIRLxocLRMQFQEAAAAAAQAAAEABQAGAAAwAAAEnBycHFwcXNxc3JzcBQEBgYEBgYEBgYEBgYAFAQGBgQGBgQGBgQGBgAAABAAAAAQAA8wFiz18PPPUACwIAAAAAANAucmYAAAAA0C5yZgAA//kB5wHgAAAACAACAAAAAAAAAAEAAAHg/+AAAAIAAAAAAAHnAAEAAAAAAAAAAAAAAAAAAAAHAAAAAAAAAAAAAAAAAQAAAAFAAAAB5wAAAUAAAAAAAAAACgAUAB4AMgCgALwAAQAAAAcARwACAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA4ArgABAAAAAAABAAwAAAABAAAAAAACAA4AQAABAAAAAAADAAwAIgABAAAAAAAEAAwATgABAAAAAAAFABYADAABAAAAAAAGAAYALgABAAAAAAAKADQAWgADAAEECQABAAwAAAADAAEECQACAA4AQAADAAEECQADAAwAIgADAAEECQAEAAwATgADAAEECQAFABYADAADAAEECQAGAAwANAADAAEECQAKADQAWgBxAEMAbwBtAGIAbwBWAGUAcgBzAGkAbwBuACAAMQAuADAAcQBDAG8AbQBiAG9xQ29tYm8AcQBDAG8AbQBiAG8AUgBlAGcAdQBsAGEAcgBxAEMAbwBtAGIAbwBGAG8AbgB0ACAAZwBlAG4AZQByAGEAdABlAGQAIABiAHkAIABJAGMAbwBNAG8AbwBuAC4AAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==) format('truetype'), url(data:application/font-woff;charset=utf-8;base64,d09GRk9UVE8AAAS0AAoAAAAABGwAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABDRkYgAAAA9AAAATUAAAE1LmQ2hU9TLzIAAAIsAAAAYAAAAGAIIgbZY21hcAAAAowAAABEAAAARAA1AGlnYXNwAAAC0AAAAAgAAAAIAAAAEGhlYWQAAALYAAAANgAAADYBYyWiaGhlYQAAAxAAAAAkAAAAJAPJAehobXR4AAADNAAAABwAAAAcBWcAAG1heHAAAANQAAAABgAAAAYAB1AAbmFtZQAAA1gAAAE8AAABPONXmgpwb3N0AAAElAAAACAAAAAgAAMAAAEABAQAAQEBB3FDb21ibwABAgABADr4HAL4GwP4GAQeCgAZU/+Lix4KABlT/4uLDAeLa/iU+HQFHQAAAHkPHQAAAH4RHQAAAAkdAAABLBIACAEBBw0PERQXGh1xQ29tYm9xQ29tYm91MHUxdTIwdTIxdTIydTIzAAACAYkABQAHAQEEBwoNJoOk/JQO/JQO/JQO+5QO+1T3lPfUFSsrK+tLS/c0+zT3NPc0S8sFDnL4dMsV+xH3EQWdqJasi7CL9TXhIYshizU1iyGLIeE19Yuwi6yWqJ0I9xH7EQWUgpmLlJQIq6sFlJSLmYKUCPu06xVEi1LEi9KL0sTE0ovSi8RSi0SLRFJSRIsIDvtU99T31BVLyysrK+tLS+srKyvLS+vr6yvLyyvr6+sFDviUFPiUFYsMCgAAAAADAgABkAAFAAABTAFmAAAARwFMAWYAAAD1ABkAhAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAEAAAAAjAeD/4P/gAeAAIAAAAAEAAAAAAAAAAAAAACAAAAAAAAIAAAADAAAAFAADAAEAAAAUAAQAMAAAAAgACAACAAAAAQAj//3//wAAAAAAIP/9//8AAf/jAAMAAQAAAAAAAAAAAAEAAf//AA8AAQAAAAEAADYYv4BfDzz1AAsCAAAAAADQLnJmAAAAANAucmYAAP/5AecB4AAAAAgAAgAAAAAAAAABAAAB4P/gAAACAAAAAAAB5wABAAAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAAAEAAAABQAAAAecAAAFAAAAAAFAAAAcAAAAAAA4ArgABAAAAAAABAAwAAAABAAAAAAACAA4AQAABAAAAAAADAAwAIgABAAAAAAAEAAwATgABAAAAAAAFABYADAABAAAAAAAGAAYALgABAAAAAAAKADQAWgADAAEECQABAAwAAAADAAEECQACAA4AQAADAAEECQADAAwAIgADAAEECQAEAAwATgADAAEECQAFABYADAADAAEECQAGAAwANAADAAEECQAKADQAWgBxAEMAbwBtAGIAbwBWAGUAcgBzAGkAbwBuACAAMQAuADAAcQBDAG8AbQBiAG9xQ29tYm8AcQBDAG8AbQBiAG8AUgBlAGcAdQBsAGEAcgBxAEMAbwBtAGIAbwBGAG8AbgB0ACAAZwBlAG4AZQByAGEAdABlAGQAIABiAHkAIABJAGMAbwBNAG8AbwBuAC4AAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==) format('woff')
-    font-weight: normal
-    font-style: normal
-
-[class^="qCombo-"],
-[class*=" qCombo-"]
-    font-family: 'qCombo'
-    speak: none
-    font-style: normal
-    font-weight: normal
-    font-variant: normal
-    text-transform: none
-    line-height: 1
-
-    -webkit-font-smoothing: antialiased
-    -moz-osx-font-smoothing: grayscale
-
-.qCombo-down:before
-    content: "\21"
-
-.qCombo-search:before
-    content: "\22"
-
-.qCombo-clean:before
-    content: "\23"
-
 // Vars
 $qComboTB: 8px
 $qComboLR: 11px
 $qComboPadding: $qComboTB $qComboLR
 $qComboBoderRadius: 5px
+$gray: #000000
 
 // Widget
 .qCombo
@@ -49,109 +21,114 @@ $qComboBoderRadius: 5px
     font-family: Consolas, 'Liberation Mono', Courier, monospace
     font-size: 1em
 
-    // &.qCombo--initialized
-    //     > select
-    //         z-index: 1
-    //         visibility: hidden
-    //         position: absolute
+    &.qCombo--initialized
+        > select
+            z-index: 1
+            visibility: hidden
+            position: absolute
 
     > .widgetCombo
-        position: relative
         width: 100%
+        position: relative
         border-radius: $qComboBoderRadius
         background-color: rgba(240, 240, 240 ,1)
-
-        > .widgetComboLabel,
-        > .widgetComboList
-            display: flex
-            flex-flow: row wrap
-            align-items: stretch
+        &:focus
+            outline: none
+            background-color: red
 
         > .widgetComboLabel
+            display: block
+            background-image: url("data:image/svg+xml;utf8,<svg width='20px' height='32px' id='Layer_1' style='enable-background:new 0 0 20 32;' version='1.1' viewBox='0 0 20 32' xml:space='preserve' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><path fill='#{$gray}' d='M16 10l-6 6-6-6-4 4 10 10 10-10-4-4z'></path></svg>")
+            background-repeat: no-repeat
+            background-position: calc(100% - 10px) center
+            background-size: 15px
             > .widgetCombo__label
-                flex: 1 85%
+                display: block
+                width: 100%
                 padding: $qComboPadding
                 box-sizing: border-box
                 span
-                    display: inline-block
+                    display: block
                     text-overflow: ellipsis
                     white-space: nowrap
-                    overflow: hidden
-                    width: 100%
-                    vertical-align: middle
-
-            > .qCombo-down
-                display: none
-            > .qCombo-clean
-                display: block
-
-
+                    width: calc(100% - 20px)
+                    min-height: 100%
+                    &:after
+                        content: "\0020"
 
         > .widgetComboList
-            width: 100%
-            box-sizing: border-box
             display: none
-            position: absolute
+            box-sizing: border-box
+
             background-color: rgba(240, 240, 240 ,1)
             border-radius: 0 0 $qComboBoderRadius $qComboBoderRadius
+            // padding-bottom: 10px
 
 
             > .widgetCombo__q
-                flex: 1 auto
-                margin: 0
-                padding: $qComboPadding
+                /* autoprefixer: off */
+                -moz-appearance: none
+                -webkit-appearance: none
+                appearance: none
+                /* autoprefixer: on */
+                display: block
+                width: 100%
+                min-height: 15px
                 box-sizing: border-box
                 border: 0
+                margin: 0
+                padding: $qComboPadding
                 background-color: white
+                background-image: url("data:image/svg+xml;utf8,<svg width='30px' height='32px' id='Layer_1' style='enable-background:new 0 0 30 32;' version='1.1' viewBox='0 0 30 32' xml:space='preserve' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><path fill='#{$gray}' d='M30 26l-7.785-7.785c1.111-1.814 1.785-3.929 1.785-6.215 0-6.626-5.375-12-12-12s-12 5.374-12 12c0 6.625 5.374 12 12 12 2.286 0 4.4-0.674 6.215-1.781l7.785 7.781c0.547 0.547 1.453 0.543 2 0l2-2c0.547-0.547 0.547-1.453 0-2zM12 20c-4.418 0-8-3.582-8-8s3.582-8 8-8 8 3.582 8 8-3.582 8-8 8z'></path></svg>")
+                background-repeat: no-repeat
+                background-position: calc(100% - 10px) center
+                background-size: 15px
                 &:focus
                     outline: none
                     background-color: rgba(252, 252, 252, 1)
-
-            > .qCombo-search
-                background-color: white
-
-            > .widgetCombo__q:focus ~ .qCombo-search
-                background-color: rgba(252, 252, 252, 1)
+                    background-color: red
+                &:after
+                    content: "\0020"
 
 
             > .widgetCombo__listbox
-                flex: 1 100%
+                display: block
+                width: 100%
                 list-style: none
                 margin: 0
                 padding: 0
                 overflow: auto
                 max-height: 35px * 5
-                border-radius: 0 0 $qComboBoderRadius $qComboBoderRadius
                 > li
                     margin: 0
                     padding: $qComboPadding
+                    -webkit-tap-highlight-color: rgba(0, 0, 255, 0.5)
+                    -moz-tap-highlight-color: rgba(0, 0, 255, .5)
+                    tap-highlight-color: rgba(0, 0, 255, .5)
+                    &:nth-child(odd)
+                        background-color: rgba(230, 230, 230, 0.8)
                     &:hover
-                        background-color: rgba(0, 0, 255, .5)
+                        background-color: rgba(0, 0, 255, 0.5)
                         color: rgba(white, 1)
-                        // border-radius: $qComboBoderRadius
 
         &.isEmpty
             > .widgetComboLabel
                 > .widgetCombo__label
                     color: rgba(black, 0.5)
-                > .qCombo-down
-                    display: block
-                > .qCombo-clean
-                    display: none
 
-        &.isSearching
-            z-index: 999
-            border-radius: $qComboBoderRadius $qComboBoderRadius 0 0
-            > .widgetComboLabel
-                > .qCombo-down
-                    display: block
-                > .qCombo-clean
-                    display: none
+        // &.isSearching
+        //     > .widgetComboLabel
+        //         background-image: url("data:image/svg+xml;utf8,<svg width='20px' height='32px' id='Layer_1' style='enable-background:new 0 0 20 32;' version='1.1' viewBox='0 0 20 32' xml:space='preserve' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><path fill='#{$gray}' d='M10 8l-10 10 4 4 6-6 6 6 4-4-10-10z'></path></svg>")
 
-            > .widgetComboList
-                display: flex
+        //     > .widgetComboList
+        //         display: block
 
+    // > .widgetCombo:focus,
+    > .widgetCombo.focused
 
-.qCombo__icon
-    padding: $qComboPadding
-    box-sizing: border-box
+        .widgetComboLabel
+            background-image: url("data:image/svg+xml;utf8,<svg width='20px' height='32px' id='Layer_1' style='enable-background:new 0 0 20 32;' version='1.1' viewBox='0 0 20 32' xml:space='preserve' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><path fill='#{$gray}' d='M10 8l-10 10 4 4 6-6 6 6 4-4-10-10z'></path></svg>")
+
+        .widgetComboList
+            display: block
+

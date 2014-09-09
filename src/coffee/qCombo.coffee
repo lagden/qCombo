@@ -8,13 +8,15 @@
         'classie/classie'
         'eventEmitter/EventEmitter'
         'hammerjs/hammer'
+        'async/lib/async'
       ], factory
   else
     root.QCombo = factory root.classie,
                           root.EventEmitter,
-                          root.Hammer
+                          root.Hammer,
+                          root.async,
   return
-) @, (classie, EventEmitter, Hammer) ->
+) @, (classie, EventEmitter, Hammer, async) ->
 
   'use strict'
 
@@ -50,23 +52,18 @@
     # Template
     getTemplate: ->
       return '
-        <div class="widgetCombo" data-value="{v}">
+        <div tabindex="0" class="widgetCombo" data-value="{v}">
           <div class="widgetComboLabel">
-            <div class="widgetCombo__label">
-              <span>{c}</span>
-            </div>
-            <div class="qCombo-down qCombo__icon"></div>
-            <div class="qCombo-clean qCombo__icon"></div>
+            <div class="widgetCombo__label"><span>{c}</span></div>
           </div>
           <div class="widgetComboList">
-            <input type="text" role="combobox" class="widgetCombo__q">
-            <div class="qCombo-search qCombo__icon"></div>
+            <input type="search" class="widgetCombo__q">
             <ul role="listbox" class="widgetCombo__listbox"></ul>
           </div>
         </div>'
 
-    # Widget change
-    onChange: (event) ->
+    # Widget onSelected
+    onSelected: (event) ->
       target  = event.target
       index   = _SPL.getData(target, 'data-index')
 
@@ -77,45 +74,47 @@
       _SPL.updateWidget.call @
       _SPL.updateParam.call @
       _SPL.isEmpty.call @
+      _SPL.onFocusOut.call @
 
       @emitChange()
       @selectCombo.dispatchEvent @eventChange
+
       return
 
-    # Reset
-    onReset: (event) ->
-      @caption = @options.empty
-      @valor = null
-      _SPL.updateCombo.call @
-      _SPL.updateWidget.call @
-      _SPL.updateParam.call @
-      _SPL.isEmpty.call @
+    # Toggle
+    onToggle: (event) ->
+      focused = classie.has @widget, 'focused'
+      if focused is false or @focus is false
+        @focus = true
+        _SPL.onFocusIn.call @
+      else
+        _SPL.onFocusOut.call @
 
-      @emitChange()
-      @selectCombo.dispatchEvent @eventChange
       return
 
-    # Open list
+    onFocusIn: (event) ->
+      classie.add @widget, 'focused'
+      console.log 'onFocusIn'
+      return
+
+    onFocusOut: (event) ->
+      classie.remove @widget, 'focused'
+      @focus = false
+      console.log 'onFocusOut'
+      return
+
+    # Open
     onOpen: (event) ->
-      afterFocus = ->
-        @q.focus()
-
-      isOpen = classie.has @widget, 'isSearching'
-      if isOpen is off
-        classie.add @widget, 'isSearching'
-        setTimeout afterFocus.bind(@), 100
-
+      # isOpen = classie.has @widget, 'isSearching'
+      # if isOpen
+      #   classie.add @widget, 'isSearching'
       return
 
-    # Close list
+    # Close
     onClose: (event) ->
-      afterWait = ->
-        isOpen = classie.has @widget, 'isSearching'
-        if isOpen is on
-          classie.remove @widget, 'isSearching'
-
-      # Blur trigger
-      setTimeout afterWait.bind(@), 200
+      # isOpen = classie.has @widget, 'isSearching'
+      # if isOpen
+      #   classie.remove @widget, 'isSearching'
       return
 
     # Return a text content from element
@@ -178,6 +177,31 @@
         ]
       return
 
+    isListening: (el) ->
+      id = el and el.listenerGUID
+      return id and @listeners[el.listenerGUID]
+
+    updateAddEvents: ->
+      for li in @list.querySelectorAll 'li'
+        listener = _SPL.isListening.call @, li
+        if listener instanceof Hammer is false
+          manager = new Hammer.Manager li
+          manager.add new Hammer.Tap event: 'tap'
+          manager.on 'tap', @events['selected']
+
+          # Map listeners
+          ++@listenerGUID
+          li.listenerGUID = @listenerGUID
+          @listeners[@listenerGUID] = manager
+      return
+
+    updateRemoveEvents: (el) ->
+      listener = _SPL.isListening.call @, el
+      if listener instanceof Hammer is true
+        listener.destroy()
+        @listeners[@listenerGUID] = null
+      return
+
     updateDataList: ->
       contentList = []
       for o in @selectComboOptions
@@ -195,31 +219,6 @@
       @list.insertAdjacentHTML 'afterbegin', contentList.join ''
       _SPL.updateAddEvents.call @
       return
-
-    updateAddEvents: ->
-      for li in @list.querySelectorAll 'li'
-        listener = _SPL.isListening.call @, li
-        if listener instanceof Hammer is false
-          manager = new Hammer.Manager li
-          manager.add new Hammer.Tap event: 'tap'
-          manager.on 'tap', @events['change']
-
-          # Map listeners
-          ++@listenerGUID
-          li.listenerGUID = @listenerGUID
-          @listeners[@listenerGUID] = manager
-      return
-
-    updateRemoveEvents: (el) ->
-      listener = _SPL.isListening.call @, el
-      if listener instanceof Hammer is true
-        listener.destroy()
-        @listeners[@listenerGUID] = null
-      return
-
-    isListening: (el) ->
-      id = el and el.listenerGUID
-      return id and @listeners[el.listenerGUID]
 
     # Get combo options data and keep on @selectComboOptions
     getOptions: (callback)->
@@ -246,21 +245,21 @@
 
       # Template Render
       r =
-        'c' : @caption || @options.empty
-        'v' : @valor
+        'c'   : @caption || @options.empty
+        'v'   : @valor
+        'guid': @container.srGUID
 
       content = @options.template().replace /\{(.*?)\}/g, (a, b) ->
         return r[b]
 
       @container.insertAdjacentHTML 'afterbegin', content
 
+      r = null
+
       # Elements
       @widget       = @container.querySelector @options.selectors.widget
       @widgetLabel  = @widget.querySelector @options.selectors.comboLabel
-      @labelHandler = @widgetLabel.querySelector @options.selectors.labelHandler
-      @label        = @labelHandler.querySelector @options.selectors.label
-      @down         = @widgetLabel.querySelector @options.selectors.down
-      @clean        = @widgetLabel.querySelector @options.selectors.clean
+      @label        = @widgetLabel.querySelector @options.selectors.label
       @widgetList   = @widget.querySelector @options.selectors.comboList
       @q            = @widgetList.querySelector @options.selectors.q
       @list         = @widgetList.querySelector @options.selectors.list
@@ -270,28 +269,19 @@
 
       # Events
       @events =
-        open     : _SPL.onOpen.bind(@)
-        close    : _SPL.onClose.bind(@)
-        reset    : _SPL.onReset.bind(@)
-        change   : _SPL.onChange.bind(@)
+        toggle     : _SPL.onToggle.bind(@)
+        close      : _SPL.onClose.bind(@)
+        selected   : _SPL.onSelected.bind(@)
+        focusin    : _SPL.onFocusIn.bind(@)
+        focusout   : _SPL.onFocusOut.bind(@)
         # keydown  : _SPL.onKeydown.bind(@)
 
       # Hammer Manager
       @hammer = [
         {
-          manager : new Hammer.Manager @labelHandler
+          manager : new Hammer.Manager @widgetLabel
           evento  : new Hammer.Tap event: 'tap'
-          method  : 'open'
-        }
-        {
-          manager : new Hammer.Manager @down
-          evento  : new Hammer.Tap event: 'tap'
-          method  : 'open'
-        }
-        {
-          manager : new Hammer.Manager @clean
-          evento  : new Hammer.Tap event: 'tap'
-          method  : 'reset'
+          method  : 'toggle'
         }
       ]
 
@@ -300,8 +290,14 @@
         o.manager.add o.evento
         o.manager.on o.evento.options.event, @events[o.method]
 
-      # Blur
-      @q.addEventListener 'blur', @events.close, false
+      # Focus in and out
+      @widget.addEventListener 'focusin', @events.focusin, true
+      @widget.addEventListener 'focusout', @events.focusout, true
+
+      # @q.addEventListener 'focus', @events.open, true
+      # @q.addEventListener 'focus', (event) ->
+      #   event.preventDefault()
+
 
       # Keyboard Event
       # @widget.addEventListener 'keydown', @eventCall.keydown
@@ -364,10 +360,7 @@
           selectors:
             widget       : '.widgetCombo'
             comboLabel   : '.widgetComboLabel'
-            labelHandler : '.widgetCombo__label'
-            label        : 'span'
-            down         : '.qCombo-down'
-            clean        : '.qCombo-clean'
+            label        : '.widgetCombo__label > span'
             comboList    : '.widgetComboList'
             q            : '.widgetCombo__q'
             list         : '.widgetCombo__listbox'
@@ -393,9 +386,10 @@
         # Custom Event change
         @eventChange = new CustomEvent 'change'
 
-        # Hammer Event
-        @singletap = new Hammer.Tap event: 'singletap'
+        # Focus
+        @focus = false
 
+        # Buid
         _SPL.build.call @
 
       return

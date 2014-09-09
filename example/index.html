@@ -35,6 +35,14 @@
             <option value="Cat">Cat</option>
             <option value="Lion" selected>Lion</option>
             <option value="Fox">Fox</option>
+            <option value="Dog">Dog</option>
+            <option value="Cat">Cat</option>
+            <option value="Lion" selected>Lion</option>
+            <option value="Fox">Fox</option>
+            <option value="Dog">Dog</option>
+            <option value="Cat">Cat</option>
+            <option value="Lion" selected>Lion</option>
+            <option value="Fox">Fox</option>
           </select>
         </div>
       </div>
@@ -42,6 +50,21 @@
       <button type="reset">Reset</button>
       <button id="destroy" type="button">Destroy</button>
     </form>
+    <script>
+      (function () {
+        function CustomEvent ( event, params ) {
+          params = params || { bubbles: false, cancelable: false, detail: undefined };
+          var evt = document.createEvent( 'CustomEvent' );
+          evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
+          return evt;
+        };
+        
+        CustomEvent.prototype = window.Event.prototype;
+        
+        window.CustomEvent = CustomEvent;
+      })();
+      
+    </script>
     <script src="qCombo.pkg.js"></script>
     <script>
       var cache = [];

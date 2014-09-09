@@ -1,34 +1,3 @@
-@font-face {
-  font-family: "qCombo";
-  src: url(data:application/x-font-ttf;charset=utf-8;base64,AAEAAAALAIAAAwAwT1MvMggiBtkAAAC8AAAAYGNtYXAANQBpAAABHAAAAERnYXNwAAAAEAAAAWAAAAAIZ2x5Zq6DkLoAAAFoAAABeGhlYWQBYyWiAAAC4AAAADZoaGVhA8kB6AAAAxgAAAAkaG10eAVnAAAAAAM8AAAAHGxvY2EAyAECAAADWAAAABBtYXhwAAoASQAAA2gAAAAgbmFtZeNXmgoAAAOIAAABPHBvc3QAAwAAAAAExAAAACAAAwIAAZAABQAAAUwBZgAAAEcBTAFmAAAA9QAZAIQAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAABAAAAAIwHg/+D/4AHgACAAAAABAAAAAAAAAAAAAAAgAAAAAAACAAAAAwAAABQAAwABAAAAFAAEADAAAAAIAAgAAgAAAAEAI//9//8AAAAAACD//f//AAH/4wADAAEAAAAAAAAAAAABAAH//wAPAAEAAAAAAAAAAAACAAA3OQEAAAAAAQAAAAAAAAAAAAIAADc5AQAAAAABAAAAAAAAAAAAAgAANzkBAAAAAAEAAABgAUABQAAGAAABBycHFzcnAQBgYECgoEABQGBgQKCgQAAAAAACAAD/+QHnAeAALQBGAAAlJz4BNz4BNTQmJy4BIyIGBw4BFRQWFx4BMzI2Nz4BNxceARc+AT8BPgE1NCYnJQYmJy4BNTQ2Nz4BNx4BFx4BFRQGBw4BJwHgfQcLAwQEHhoaRigoRhoaHh4aGkYoDhoNDBgKfQMJBAQJAyADBAQD/uAbLhIRFBQREi4bGy4SERQUERIuG0B9ChgMDRoOKEYaGh4eGhpGKChGGhoeBAQDCwZ8BAMBAQMEHwQIBQMKAmEBFRATLRwaLxESEwEBExIRLxocLRMQFQEAAAAAAQAAAEABQAGAAAwAAAEnBycHFwcXNxc3JzcBQEBgYEBgYEBgYEBgYAFAQGBgQGBgQGBgQGBgAAABAAAAAQAA8wFiz18PPPUACwIAAAAAANAucmYAAAAA0C5yZgAA//kB5wHgAAAACAACAAAAAAAAAAEAAAHg/+AAAAIAAAAAAAHnAAEAAAAAAAAAAAAAAAAAAAAHAAAAAAAAAAAAAAAAAQAAAAFAAAAB5wAAAUAAAAAAAAAACgAUAB4AMgCgALwAAQAAAAcARwACAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA4ArgABAAAAAAABAAwAAAABAAAAAAACAA4AQAABAAAAAAADAAwAIgABAAAAAAAEAAwATgABAAAAAAAFABYADAABAAAAAAAGAAYALgABAAAAAAAKADQAWgADAAEECQABAAwAAAADAAEECQACAA4AQAADAAEECQADAAwAIgADAAEECQAEAAwATgADAAEECQAFABYADAADAAEECQAGAAwANAADAAEECQAKADQAWgBxAEMAbwBtAGIAbwBWAGUAcgBzAGkAbwBuACAAMQAuADAAcQBDAG8AbQBiAG9xQ29tYm8AcQBDAG8AbQBiAG8AUgBlAGcAdQBsAGEAcgBxAEMAbwBtAGIAbwBGAG8AbgB0ACAAZwBlAG4AZQByAGEAdABlAGQAIABiAHkAIABJAGMAbwBNAG8AbwBuAC4AAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==) format("truetype"), url(data:application/font-woff;charset=utf-8;base64,d09GRk9UVE8AAAS0AAoAAAAABGwAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABDRkYgAAAA9AAAATUAAAE1LmQ2hU9TLzIAAAIsAAAAYAAAAGAIIgbZY21hcAAAAowAAABEAAAARAA1AGlnYXNwAAAC0AAAAAgAAAAIAAAAEGhlYWQAAALYAAAANgAAADYBYyWiaGhlYQAAAxAAAAAkAAAAJAPJAehobXR4AAADNAAAABwAAAAcBWcAAG1heHAAAANQAAAABgAAAAYAB1AAbmFtZQAAA1gAAAE8AAABPONXmgpwb3N0AAAElAAAACAAAAAgAAMAAAEABAQAAQEBB3FDb21ibwABAgABADr4HAL4GwP4GAQeCgAZU/+Lix4KABlT/4uLDAeLa/iU+HQFHQAAAHkPHQAAAH4RHQAAAAkdAAABLBIACAEBBw0PERQXGh1xQ29tYm9xQ29tYm91MHUxdTIwdTIxdTIydTIzAAACAYkABQAHAQEEBwoNJoOk/JQO/JQO/JQO+5QO+1T3lPfUFSsrK+tLS/c0+zT3NPc0S8sFDnL4dMsV+xH3EQWdqJasi7CL9TXhIYshizU1iyGLIeE19Yuwi6yWqJ0I9xH7EQWUgpmLlJQIq6sFlJSLmYKUCPu06xVEi1LEi9KL0sTE0ovSi8RSi0SLRFJSRIsIDvtU99T31BVLyysrK+tLS+srKyvLS+vr6yvLyyvr6+sFDviUFPiUFYsMCgAAAAADAgABkAAFAAABTAFmAAAARwFMAWYAAAD1ABkAhAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAEAAAAAjAeD/4P/gAeAAIAAAAAEAAAAAAAAAAAAAACAAAAAAAAIAAAADAAAAFAADAAEAAAAUAAQAMAAAAAgACAACAAAAAQAj//3//wAAAAAAIP/9//8AAf/jAAMAAQAAAAAAAAAAAAEAAf//AA8AAQAAAAEAADYYv4BfDzz1AAsCAAAAAADQLnJmAAAAANAucmYAAP/5AecB4AAAAAgAAgAAAAAAAAABAAAB4P/gAAACAAAAAAAB5wABAAAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAAAEAAAABQAAAAecAAAFAAAAAAFAAAAcAAAAAAA4ArgABAAAAAAABAAwAAAABAAAAAAACAA4AQAABAAAAAAADAAwAIgABAAAAAAAEAAwATgABAAAAAAAFABYADAABAAAAAAAGAAYALgABAAAAAAAKADQAWgADAAEECQABAAwAAAADAAEECQACAA4AQAADAAEECQADAAwAIgADAAEECQAEAAwATgADAAEECQAFABYADAADAAEECQAGAAwANAADAAEECQAKADQAWgBxAEMAbwBtAGIAbwBWAGUAcgBzAGkAbwBuACAAMQAuADAAcQBDAG8AbQBiAG9xQ29tYm8AcQBDAG8AbQBiAG8AUgBlAGcAdQBsAGEAcgBxAEMAbwBtAGIAbwBGAG8AbgB0ACAAZwBlAG4AZQByAGEAdABlAGQAIABiAHkAIABJAGMAbwBNAG8AbwBuAC4AAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==) format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
-[class^="qCombo-"],
-[class*=" qCombo-"] {
-  font-family: "qCombo";
-  speak: none;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.qCombo-down:before {
-  content: "\21";
-}
-
-.qCombo-search:before {
-  content: "\22";
-}
-
-.qCombo-clean:before {
-  content: "\23";
-}
-
 .qCombo {
   position: relative;
   display: inline-block;
@@ -43,95 +12,97 @@
   font-family: Consolas, "Liberation Mono", Courier, monospace;
   font-size: 1em;
 }
+.qCombo.qCombo--initialized > select {
+  z-index: 1;
+  visibility: hidden;
+  position: absolute;
+}
 .qCombo > .widgetCombo {
-  position: relative;
   width: 100%;
+  position: relative;
   border-radius: 5px;
   background-color: #f0f0f0;
 }
-.qCombo > .widgetCombo > .widgetComboLabel,
-.qCombo > .widgetCombo > .widgetComboList {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-flow: row wrap;
-      -ms-flex-flow: row wrap;
-          flex-flow: row wrap;
-  -webkit-box-align: stretch;
-  -webkit-align-items: stretch;
-      -ms-flex-align: stretch;
-          align-items: stretch;
+.qCombo > .widgetCombo:focus {
+  outline: none;
+  background-color: red;
+}
+.qCombo > .widgetCombo > .widgetComboLabel {
+  display: block;
+  background-image: url("data:image/svg+xml;utf8,<svg width='20px' height='32px' id='Layer_1' style='enable-background:new 0 0 20 32;' version='1.1' viewBox='0 0 20 32' xml:space='preserve' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><path fill='black' d='M16 10l-6 6-6-6-4 4 10 10 10-10-4-4z'></path></svg>");
+  background-repeat: no-repeat;
+  background-position: calc(100% - 10px) center;
+  background-size: 15px;
 }
 .qCombo > .widgetCombo > .widgetComboLabel > .widgetCombo__label {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1 85%;
-      -ms-flex: 1 85%;
-          flex: 1 85%;
+  display: block;
+  width: 100%;
   padding: 8px 11px;
   -moz-box-sizing: border-box;
        box-sizing: border-box;
 }
 .qCombo > .widgetCombo > .widgetComboLabel > .widgetCombo__label span {
-  display: inline-block;
+  display: block;
   text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden;
-  width: 100%;
-  vertical-align: middle;
+  width: calc(100% - 20px);
+  min-height: 100%;
 }
-.qCombo > .widgetCombo > .widgetComboLabel > .qCombo-down {
-  display: none;
-}
-.qCombo > .widgetCombo > .widgetComboLabel > .qCombo-clean {
-  display: block;
+.qCombo > .widgetCombo > .widgetComboLabel > .widgetCombo__label span:after {
+  content: "\0020";
 }
 .qCombo > .widgetCombo > .widgetComboList {
-  width: 100%;
+  display: none;
   -moz-box-sizing: border-box;
        box-sizing: border-box;
-  display: none;
-  position: absolute;
   background-color: #f0f0f0;
   border-radius: 0 0 5px 5px;
 }
 .qCombo > .widgetCombo > .widgetComboList > .widgetCombo__q {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1 auto;
-      -ms-flex: 1 auto;
-          flex: 1 auto;
+  /* autoprefixer: off */
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  /* autoprefixer: on */
+  display: block;
+  width: 100%;
+  min-height: 15px;
+  box-sizing: border-box;
+  border: 0;
   margin: 0;
   padding: 8px 11px;
-  -moz-box-sizing: border-box;
-       box-sizing: border-box;
-  border: 0;
   background-color: white;
+  background-image: url("data:image/svg+xml;utf8,<svg width='30px' height='32px' id='Layer_1' style='enable-background:new 0 0 30 32;' version='1.1' viewBox='0 0 30 32' xml:space='preserve' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><path fill='black' d='M30 26l-7.785-7.785c1.111-1.814 1.785-3.929 1.785-6.215 0-6.626-5.375-12-12-12s-12 5.374-12 12c0 6.625 5.374 12 12 12 2.286 0 4.4-0.674 6.215-1.781l7.785 7.781c0.547 0.547 1.453 0.543 2 0l2-2c0.547-0.547 0.547-1.453 0-2zM12 20c-4.418 0-8-3.582-8-8s3.582-8 8-8 8 3.582 8 8-3.582 8-8 8z'></path></svg>");
+  background-repeat: no-repeat;
+  background-position: calc(100% - 10px) center;
+  background-size: 15px;
 }
 .qCombo > .widgetCombo > .widgetComboList > .widgetCombo__q:focus {
   outline: none;
   background-color: #fcfcfc;
+  background-color: red;
 }
-.qCombo > .widgetCombo > .widgetComboList > .qCombo-search {
-  background-color: white;
-}
-.qCombo > .widgetCombo > .widgetComboList > .widgetCombo__q:focus ~ .qCombo-search {
-  background-color: #fcfcfc;
+.qCombo > .widgetCombo > .widgetComboList > .widgetCombo__q:after {
+  content: "\0020";
 }
 .qCombo > .widgetCombo > .widgetComboList > .widgetCombo__listbox {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1 100%;
-      -ms-flex: 1 100%;
-          flex: 1 100%;
+  display: block;
+  width: 100%;
   list-style: none;
   margin: 0;
   padding: 0;
   overflow: auto;
   max-height: 175px;
-  border-radius: 0 0 5px 5px;
 }
 .qCombo > .widgetCombo > .widgetComboList > .widgetCombo__listbox > li {
   margin: 0;
   padding: 8px 11px;
+  -webkit-tap-highlight-color: rgba(0, 0, 255, 0.5);
+  -moz-tap-highlight-color: rgba(0, 0, 255, 0.5);
+  tap-highlight-color: rgba(0, 0, 255, 0.5);
+}
+.qCombo > .widgetCombo > .widgetComboList > .widgetCombo__listbox > li:nth-child(odd) {
+  background-color: rgba(230, 230, 230, 0.8);
 }
 .qCombo > .widgetCombo > .widgetComboList > .widgetCombo__listbox > li:hover {
   background-color: rgba(0, 0, 255, 0.5);
@@ -140,31 +111,9 @@
 .qCombo > .widgetCombo.isEmpty > .widgetComboLabel > .widgetCombo__label {
   color: rgba(0, 0, 0, 0.5);
 }
-.qCombo > .widgetCombo.isEmpty > .widgetComboLabel > .qCombo-down {
+.qCombo > .widgetCombo.focused .widgetComboLabel {
+  background-image: url("data:image/svg+xml;utf8,<svg width='20px' height='32px' id='Layer_1' style='enable-background:new 0 0 20 32;' version='1.1' viewBox='0 0 20 32' xml:space='preserve' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><path fill='black' d='M10 8l-10 10 4 4 6-6 6 6 4-4-10-10z'></path></svg>");
+}
+.qCombo > .widgetCombo.focused .widgetComboList {
   display: block;
-}
-.qCombo > .widgetCombo.isEmpty > .widgetComboLabel > .qCombo-clean {
-  display: none;
-}
-.qCombo > .widgetCombo.isSearching {
-  z-index: 999;
-  border-radius: 5px 5px 0 0;
-}
-.qCombo > .widgetCombo.isSearching > .widgetComboLabel > .qCombo-down {
-  display: block;
-}
-.qCombo > .widgetCombo.isSearching > .widgetComboLabel > .qCombo-clean {
-  display: none;
-}
-.qCombo > .widgetCombo.isSearching > .widgetComboList {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.qCombo__icon {
-  padding: 8px 11px;
-  -moz-box-sizing: border-box;
-       box-sizing: border-box;
 }

@@ -21,6 +21,7 @@
   "dependencies": {
     "eventEmitter": "~4.2.7",
     "classie": "~1.0.1",
-    "hammerjs": "~2.0.2"
+    "hammerjs": "~2.0.2",
+    "async": "caolan/async#~0.9.0"
   }
 }
