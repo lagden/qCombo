@@ -8,15 +8,13 @@
         'classie/classie'
         'eventEmitter/EventEmitter'
         'hammerjs/hammer'
-        'async/lib/async'
       ], factory
   else
     root.QCombo = factory root.classie,
                           root.EventEmitter,
-                          root.Hammer,
-                          root.async,
+                          root.Hammer
   return
-) @, (classie, EventEmitter, Hammer, async) ->
+) @, (classie, EventEmitter, Hammer) ->
 
   'use strict'
 
@@ -78,7 +76,6 @@
 
       @emitChange()
       @selectCombo.dispatchEvent @eventChange
-
       return
 
     # Toggle
